@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "predeploy": "npm run build",
-    "deploy": "sh deploy.sh",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
