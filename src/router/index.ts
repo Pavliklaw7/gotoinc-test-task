@@ -1,10 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import UserRequestsView from '@/views/UserRequestsView.vue';
-import CreateRequestsView from '@/views/CreateRequestsView.vue';
-import CreateOrderView from '@/views/CreateOrderView.vue';
-import CreateDeliverView from '@/views/CreateDeliverView.vue';
-import AllRequestsView from '@/views/AllRequestsView.vue';
-import PageNotFount from '@/views/PageNotFount.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +13,7 @@ const router = createRouter({
     {
       path: '/requests',
       name: 'all-requests',
-      component: AllRequestsView
+      component: () => import('@/views/AllRequestsView.vue')
     },
     {
       path: '/:userId',
@@ -31,24 +25,24 @@ const router = createRouter({
     {
       path: '/:userId/requests',
       name: 'user-requests',
-      component: UserRequestsView
+      component: () => import('@/views/UserRequestsView.vue')
     },
     {
       path: '/:userId/create',
       name: 'create-requests',
-      component: CreateRequestsView
+      component: () => import('@/views/CreateRequestsView.vue')
     },
     {
       path: '/:userId/create-order',
       name: 'create-order',
-      component: CreateOrderView
+      component: () => import('@/views/CreateOrderView.vue')
     },
     {
       path: '/:userId/create-deliver',
       name: 'create-deliver',
-      component: CreateDeliverView
+      component: () => import('@/views/CreateDeliverView.vue')
     },
-    { path: '/:pathMatch(.*)*', component: PageNotFount }
+    { path: '/:pathMatch(.*)*', component: () => import('@/views/PageNotFount.vue') }
   ]
 });
 
