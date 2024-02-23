@@ -12,6 +12,6 @@ git init
 git add .
 git commit -m "deploy to gitpage"
 
-git push -f git@github.com:gotoinc-test-task.git master:gh-pages
+git push -f git@github.com:gotoinc-test-task/requests.git master:gh-pages
 
 cd -
