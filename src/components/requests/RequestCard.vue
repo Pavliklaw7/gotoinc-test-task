@@ -63,6 +63,7 @@ import BaseList from '../baseComponents/BaseList.vue';
 import type { RequestDto } from '@/models';
 import { dateFormat, dateTimeFormat } from '@/utils/format';
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const { request } = defineProps<{
   request: RequestDto;
@@ -71,9 +72,10 @@ const { request } = defineProps<{
 const emit = defineEmits(['edit', 'delete']);
 
 const requestStore = useRequestStore();
+const { matchedRequests } = storeToRefs(requestStore);
 
 const matches = computed(() => {
-  return requestStore.matchedRequests(request);
+  return matchedRequests.value(request);
 });
 
 const capitalize = (str: string) => {

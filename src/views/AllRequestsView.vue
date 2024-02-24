@@ -139,10 +139,7 @@ const openDeleteModal = (id: string) => {
 
 const openEditModal = (id: string) => {
   isEditModalOpen.value = true;
-  const targetRequest = requestStore.currentRequest(id)!;
-  editedRequest = {
-    ...targetRequest,
-    dispatchDate: targetRequest.dispatchDate
-  };
+  const targetRequest = requestStore.requests.find((item: RequestDto) => item.id === id)!;
+  editedRequest = targetRequest;
 };
 </script>

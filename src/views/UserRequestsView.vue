@@ -9,7 +9,7 @@
       :options="sortByOptions"
     />
     <div class="d-flex align-items-center flex-grow-1 my-3 pe-3 overflow-y-auto" data-simplebar>
-      <div v-if="requests.length">
+      <div v-if="sortedRequests.length">
         <RequestCard
           v-for="request in sortedRequests"
           :key="request.id"
@@ -103,8 +103,6 @@ const route = useRoute();
 const isEditModalOpen = ref(false);
 const isDeleteModalOpen = ref(false);
 
-const sortedRequests = computed(() => requestStore.sortedRequests(sortBy.value));
-
 let editedRequest = reactive({
   id: '',
   dispatchDate: 0,
@@ -124,13 +122,16 @@ const citiesStore = useCitiesStore();
 const parcelStore = useParcelStore();
 const requestStore = useRequestStore();
 
-const requests = computed(() => {
-  return requestStore.requests.filter((item: RequestDto) => item.creatorId === route.params.userId);
+const sortedRequests = computed(() => {
+  return requestStore.sortedRequests(sortBy.value).filter((item: RequestDto) => {
+    return item.creatorId === route.params.userId;
+  });
 });
 
 const onUpdate = () => {
-  isEditModalOpen.value = false;
+  console.log();
   requestStore.updateRequest(editedRequest);
+  isEditModalOpen.value = false;
 };
 
 const onDelete = () => {
@@ -146,9 +147,6 @@ const openDeleteModal = (id: string) => {
 const openEditModal = (id: string) => {
   isEditModalOpen.value = true;
   const targetRequest = requestStore.currentRequest(id)!;
-  editedRequest = {
-    ...targetRequest,
-    dispatchDate: targetRequest.dispatchDate
-  };
+  editedRequest = targetRequest;
 };
 </script>
